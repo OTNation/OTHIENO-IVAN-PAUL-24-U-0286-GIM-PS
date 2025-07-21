@@ -1,0 +1,200 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>TechGulu Systems - Intelligent Lighting Control</title>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;660&display=swap" rel="stylesheet">
+        <style>
+            /* Basic Reset & Body Styling */
+            body {
+                font-family: 'Inter', sans-serif;
+                background-color: #e0f2f7; /* Light blue background */
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                min-height: 100vh;
+                margin: 0;
+                color: #333;
+                line-height: 1.6;
+            }
+
+            /* Main Container Styling */
+            .container {
+                background-color: #ffffff;
+                padding: 35px;
+                border-radius: 15px;
+                box-shadow: 0 8px 20px rgba(0,0,0,0.15); /* Softer, larger shadow */
+                text-align: center;
+                width: 95%; /* More fluid width */
+                max-width: 550px; /* Slightly larger max-width */
+                box-sizing: border-box; /* Include padding in width */
+                margin: 20px auto; /* Center with margin */
+            }
+
+            /* Header Styling */
+            h1 {
+                color: #007bff; /* Primary blue */
+                margin-bottom: 30px;
+                font-weight: 660; /* Semi-bold */
+                font-size: 2.2em; /* Larger heading */
+                line-height: 1.2;
+            }
+
+            /* Control Section Styling */
+            .control-section {
+                margin-bottom: 25px;
+                padding: 15px;
+                border: 1px solid #e0e0e0;
+                border-radius: 10px;
+                background-color: #f8f9fa; /* Very light grey for sections */
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .control-section h2 {
+                color: #0056b3; /* Darker blue for subheadings */
+                margin-top: 0;
+                margin-bottom: 15px;
+                font-size: 1.6em;
+            }
+            .control-section p {
+                margin-top: 5px;
+                font-size: 1.1em;
+            }
+
+            /* Button Styling */
+            button {
+                background-color: #6c757d; /* Muted grey for OFF state */
+                color: white;
+                padding: 14px 30px;
+                border: none;
+                border-radius: 8px; /* More rounded */
+                font-size: 1.2em;
+                cursor: pointer;
+                transition: background-color 0.3s ease, transform 0.2s ease; /* Add transform for subtle click effect */
+                width: 80%; /* Slightly narrower buttons */
+                max-width: 250px;
+                margin-bottom: 12px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Button shadow */
+            }
+
+            button:hover {
+                background-color: #5a6268; /* Darker grey on hover */
+                transform: translateY(-2px); /* Lift effect on hover */
+            }
+
+            button:active {
+                transform: translateY(0); /* Press effect */
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+
+            /* ON state for buttons */
+            button.on {
+                background-color: #28a745; /* Green for ON state */
+            }
+
+            button.on:hover {
+                background-color: #218838; /* Darker green on hover */
+            }
+
+            /* Status Indicator Styling */
+            .status-indicator {
+                display: inline-block;
+                width: 20px; /* Larger indicator */
+                height: 20px;
+                border-radius: 50%;
+                background-color: #ccc; /* Default grey */
+                margin-left: 15px;
+                vertical-align: middle;
+                border: 2px solid rgba(0,0,0,0.1); /* Subtle border */
+                box-shadow: inset 0 1px 3px rgba(0,0,0,0.2); /* Inner shadow for depth */
+            }
+
+            .status-indicator.on {
+                background-color: #28a745; /* Green for ON */
+                box-shadow: 0 0 8px rgba(40, 167, 69, 0.6), inset 0 1px 3px rgba(0,0,0,0.2); /* Glow effect */
+            }
+
+            .status-indicator.off {
+                background-color: #dc3545; /* Red for OFF */
+                box-shadow: 0 0 8px rgba(220, 53, 69, 0.6), inset 0 1px 3px rgba(0,0,0,0.2); /* Glow effect */
+            }
+
+            /* Footer Styling */
+            footer {
+                margin-top: 40px;
+                font-size: 0.85em;
+                color: #555;
+                text-align: center;
+                padding: 15px;
+                background-color: #f0f0f0; /* Light grey footer background */
+                width: 100%;
+                box-sizing: border-box;
+                border-top: 1px solid #ddd;
+            }
+            footer p {
+                margin: 5px 0;
+            }
+
+            /* Responsive Adjustments */
+            @media (max-width: 480px) {
+                .container {
+                    padding: 20px;
+                }
+                h1 {
+                    font-size: 1.8em;
+                }
+                button {
+                    font-size: 1.1em;
+                    padding: 12px 20px;
+                    width: 90%;
+                }
+                .status-indicator {
+                    width: 18px;
+                    height: 18px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>NationTech Systems <br> Intelligent Lighting Control</h1>
+
+            <div class="control-section">
+                <h2>Automatic Mode</h2>
+                <button id="autoModeButton" onclick="toggleAutoMode()">Toggle Automatic Mode</button>
+                <span id="autoModeStatus" class="status-indicator off"></span>
+                <p>Light Sensor Reading: <span id="ldrValue">---</span></p>
+            </div>
+
+            <div class="control-section">
+                <h2>Manual LED Control</h2>
+                <div class="light-control">
+                    <h3>LED 1</h3>
+                    <button id="led1Button" onclick="toggleLED(1)">Toggle LED 1</button>
+                    <span id="led1Status" class="status-indicator off"></span>
+                </div>
+
+                <div class="light-control">
+                    <h3>LED 2</h3>
+                    <button id="led2Button" onclick="toggleLED(2)">Toggle LED 2</button>
+                    <span id="led2Status" class="status-indicator off"></span>
+                </div>
+
+                <div class="light-control">
+                    <h3>LED 3</h3>
+                    <button id="led3Button" onclick="toggleLED(3)">Toggle LED 3</button>
+                    <span id="led3Status" class="status-indicator off"></span>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 NationTech Systems</p>
+            <p>Powered by smart systems</p>
+        </footer>
+
+       
